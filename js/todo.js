@@ -5,11 +5,15 @@ const toDoList = document.getElementById("todo-list");
 function printTodo(newTodo){
     const li = document.createElement("li");
     const span = document.createElement("span");
+    span.innerText = newTodo;
+    const button = document.createElement("button");
+    button.innerText = "❌";
+    
     li.appendChild(span);
-    span.innerText = newTodo
-    console.log(li);
-
+    li.appendChild(button);
     toDoList.append(li);
+
+    button.addEventListener("click", deleteTodo);
 }
 
 function handleTodoSummit(event) {
@@ -17,7 +21,12 @@ function handleTodoSummit(event) {
     console.log(toDoInput.value);
     const newTodo = toDoInput.value;
     toDoInput.value = "";
-    printTodo(newTodo)
+    printTodo(newTodo);
+}
+
+function deleteTodo(event) {
+    const li = event.target.parentElement;
+    li.remove();
 }
 
 toDoForm.addEventListener("submit", handleTodoSummit);
