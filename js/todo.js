@@ -42,8 +42,12 @@ function handleTodoSummit(event) {
 function deleteTodo(event) {
     const li = event.target.parentElement;
     li.remove();
-    console.log(li.id);
-    // deleteLocalStorage(li.id); // localStorage 제거
+    deleteLocalStorage(li.id); // localStorage 제거
+}
+
+function deleteLocalStorage(Id){
+    toDos = toDos.filter((toDo) => {return toDo.id !== parseInt(Id)});
+    saveToDos();
 }
 
 toDoForm.addEventListener("submit", handleTodoSummit);
