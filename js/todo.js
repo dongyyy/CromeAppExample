@@ -9,10 +9,11 @@ function saveToDos(){
     localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
 }
 
-function printTodo(newTodo){
+function printTodo(newTodoObj){
     const li = document.createElement("li");
+    li.id = newTodoObj.id;
     const span = document.createElement("span");
-    span.innerText = newTodo;
+    span.innerText = newTodoObj.text;
     const button = document.createElement("button");
     button.innerText = "❌";
     
@@ -27,9 +28,13 @@ function handleTodoSummit(event) {
     event.preventDefault();
     console.log(toDoInput.value);
     const newTodo = toDoInput.value;
+    const newTodoObj = {
+        text: newTodo,
+        id: Date.now(),
+    };
     toDoInput.value = "";
-    toDos.push(newTodo);
-    printTodo(newTodo);
+    toDos.push(newTodoObj);
+    printTodo(newTodoObj);
     saveToDos();
     console.log(localStorage.getItem(TODOS_KEY));
 }
@@ -37,11 +42,8 @@ function handleTodoSummit(event) {
 function deleteTodo(event) {
     const li = event.target.parentElement;
     li.remove();
-    // //TODO localStorage 제거
-    // const toDos = localStorage.getItem(TODOS_KEY).split(",");
-    // const index = toDos.indexOf(event.target.innerText);
-    // toDos.pop(index);
-    // localStorage.setItem(TODOS_KEY, toDos);
+    console.log(li.id);
+    // deleteLocalStorage(li.id); // localStorage 제거
 }
 
 toDoForm.addEventListener("submit", handleTodoSummit);
