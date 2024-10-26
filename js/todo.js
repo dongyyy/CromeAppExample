@@ -2,7 +2,7 @@ const toDoForm = document.getElementById("todo-form");
 const toDoInput = toDoForm.querySelector("#todo-form input");
 const toDoList = document.getElementById("todo-list");
 
-const toDos = [];
+let toDos = [];
 const TODOS_KEY = "todos"
 
 function saveToDos(){
@@ -49,10 +49,10 @@ toDoForm.addEventListener("submit", handleTodoSummit);
 const savedToDos = localStorage.getItem(TODOS_KEY);
 // console.log(savedToDos); // String type
 if(savedToDos){
-    const parseToDos = JSON.parse(savedToDos);
-    // console.log(parseToDos); // array type
+    toDos = JSON.parse(savedToDos);
+    console.log(toDos); // array type
     
-    parseToDos.forEach(printTodo); // 파라미터 생략 가능...ㅋㅋ
+    toDos.forEach(printTodo); // 파라미터 생략 가능...ㅋㅋ
     // parseToDos.forEach(element => {
     //     printTodo(element);
     // }); // {}도 생략 가능
