@@ -3,10 +3,10 @@ const toDoInput = toDoForm.querySelector("#todo-form input");
 const toDoList = document.getElementById("todo-list");
 
 const toDos = [];
-const toDosKey = "todos"
+const TODOS_KEY = "todos"
 
 function saveToDos(){
-    localStorage.setItem(toDosKey, JSON.stringify(toDos));
+    localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
 }
 
 function printTodo(newTodo){
@@ -31,17 +31,29 @@ function handleTodoSummit(event) {
     toDos.push(newTodo);
     printTodo(newTodo);
     saveToDos();
-    console.log(localStorage.getItem(toDosKey));
+    console.log(localStorage.getItem(TODOS_KEY));
 }
 
 function deleteTodo(event) {
     const li = event.target.parentElement;
     li.remove();
     // //TODO localStorage 제거
-    // const toDos = localStorage.getItem(toDosKey).split(",");
+    // const toDos = localStorage.getItem(TODOS_KEY).split(",");
     // const index = toDos.indexOf(event.target.innerText);
     // toDos.pop(index);
-    // localStorage.setItem(toDosKey, toDos);
+    // localStorage.setItem(TODOS_KEY, toDos);
 }
 
 toDoForm.addEventListener("submit", handleTodoSummit);
+
+const savedToDos = localStorage.getItem(TODOS_KEY);
+// console.log(savedToDos); // String type
+if(savedToDos){
+    const parseToDos = JSON.parse(savedToDos);
+    // console.log(parseToDos); // array type
+    
+    parseToDos.forEach(printTodo); // 파라미터 생략 가능...ㅋㅋ
+    // parseToDos.forEach(element => {
+    //     printTodo(element);
+    // }); // {}도 생략 가능
+}
